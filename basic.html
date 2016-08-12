@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div#memory_board{
+	background:#CCC;
+	border:#999 1px solid;
+	width:800px;
+	height:540px;
+	padding:24px;
+	margin:0px auto;
+}
+div#memory_board > div{
+	background: url(tile_bg.jpg) no-repeat;
+	border:#000 1px solid;
+	width:71px;
+	height:71px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:64px;
+	cursor:pointer;
+	text-align:center;
+}
+</style>
+<script>
+// Scripted By Adam Khoury in connection with the following video tutorial:
+// http://www.youtube.com/watch?v=c_ohDPWmsM0
+var memory_array = ['kichin','kitchen','oloma','orange','apul','apple','unere','banana'];
+// make each word a variable 
+// var wordOne = "kichin" 
+// var wordTwo = kitchen
+// var wordThree = oloma 
+// var wordFour = orange
+// var wordFive = apul  
+// var wordSix = apple
+// var wordSeven = unere  
+// var wordEight = banana 
+
+
+
+// make list for each word
+var wordOne1 = ['kichin', 'kitchen'];
+var wordTwo2 = ['oloma', 'orange'];
+var wordThree3 = ['apul', 'apple'];
+var wordFour4 = ['unere', 'banana'];
+
+var memory_values = [];
+var memory_tile_ids = [];
+var tiles_flipped = 0;
+Array.prototype.memory_tile_shuffle = function(){
+    var i = this.length, j, temp;
+    while(--i > 0){
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
+}
+
+function newBoard(){
+	tiles_flipped = 0;
+	var output = '';
+    memory_array.memory_tile_shuffle();
+	for(var i = 0; i < memory_array.length; i++){
+		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+	}
+	document.getElementById('memory_board').innerHTML = output;
+}
+
+function checkEquals1(wordOne, wordTwo) {
+// 1
+	if (wordOne == "kichin" && wordTwo == "kitchen") || (wordTwo == "kichin" && wordOne == "kitchen") {
+		return True;
+	}
+	else {
+		return False;
+	}
+}
+function checkEquals2(wordOne, wordTwo) {
+// 2
+	if (wordOne == "oloma" && wordTwo == "orange") || (wordTwo == "oloma" && wordOne == "orange") {
+		return True;
+	}
+	else {
+		return False;
+	}
+}
+function checkEquals3(wordOne, wordTwo) {
+// 3
+	if (wordOne == "apul" && wordTwo == "apple") || (wordTwo == "apul" && wordOne == "apple") {
+		return True;	
+	}
+	else  {
+		return False;
+	}
+}
+function checkEquals4(wordOne, wordTwo) {
+// 4
+	else if (wordOne == "unere" && wordTwo == "banana") || (wordTwo == "unere" && wordOne == "banana") {
+		return True;
+	}
+	else {
+		return False;
+	}
+}
+
+function memoryFlipTile(tile,val){
+	if(tile.innerHTML == "" && memory_values.length < 2){
+		tile.style.background = '#FFF';
+		tile.innerHTML = val;
+		if(memory_values.length == 0){
+			memory_values.push(val);
+			memory_tile_ids.push(tile.id);
+		} else if(memory_values.length == 1){
+			memory_values.push(val);
+			memory_tile_ids.push(tile.id);
+			// C H A N G E  T H I S  C O D E
+			// if(memory_values[0] == memory_values[1]){
+				// if (checkEquals(memory_values[0], memory_values[1]))
+				
+				//if (checkEquals(memory_values[0], memory_values[1])){}
+				if (checkEquals1 = True) {
+					memory_values[0] == wordOne1[0] || memory_values[0] == wordOne1[1]
+					&&
+					memory_values[1] == wordOne1[0] || memory_values[1] == wordOne1[1];
+					tiles_flipped +=2;
+					memory_values = [];
+	            	memory_tile_ids = [];
+				}
+				if (checkEquals2 = True) {
+					memory_values[0] == wordTwo2[0] || memory_values[0] == wordTwo2[1]
+					&&
+					memory_values[1] == wordTwo2[0] || memory_values[1] == wordTwo2[1];
+					tiles_flipped +=2;
+					memory_values = [];
+	            	memory_tile_ids = [];
+				}
+				if (checkEquals3 = True) {
+					memory_values[0] == wordThree3[0] || memory_values[0] == wordThree3[1]
+					&&
+					memory_values[1] == wordThree3[0] || memory_values[1] == wordThree3[1];
+					tiles_flipped +=2;
+					memory_values = [];
+	            	memory_tile_ids = [];
+				}
+				if (checkEquals3 = True) {
+					memory_values[0] == wordFour4[0] || memory_values[0] == wordFour4[1]
+					&&
+					memory_values[1] == wordFour4[0] || memory_values[1] == wordFour4[1];
+					tiles_flipped +=2;
+					memory_values = [];
+	            	memory_tile_ids = [];
+				}
+				
+
+				//if (checkEquals4(memory_values[0] == memory_values[1])){
+				//	tiles_flipped +=2;
+				//	memory_values = [];
+	            //	memory_tile_ids = [];				
+				//}
+
+
+				// if (checkEquals1 == True) {
+				// 	tiles_flipped += 2;
+				// }
+				// else if (checkEquals2) {
+				// 	tiles_flipped += 2;
+				// }
+				// else if (checkEquals3) {
+				// 	tiles_flipped += 2;
+				// }
+
+
+
+				//tiles_flipped += 2;
+				// Clear both arrays
+				// memory_values = [];
+            	// memory_tile_ids = [];
+				// Check to see if the whole board is cleared
+				if(tiles_flipped == memory_array.length){
+					alert("Good job, you won!");
+					document.getElementById('memory_board').innerHTML = "";
+					newBoard();
+				}
+			} else {
+				function flip2Back(){
+				    // Flip the 2 tiles back over
+				    var tile_1 = document.getElementById(memory_tile_ids[0]);
+				    var tile_2 = document.getElementById(memory_tile_ids[1]);
+				    tile_1.style.background = 'url(tile_bg.jpg) no-repeat';
+            	    tile_1.innerHTML = "";
+				    tile_2.style.background = 'url(tile_bg.jpg) no-repeat';
+            	    tile_2.innerHTML = "";
+				    // Clear both arrays
+				    memory_values = [];
+            	    memory_tile_ids = [];
+				}
+				setTimeout(flip2Back, 700);
+			}
+		}
+	}
+}
+</script>
+</head>
+<body>
+
+<div id="memory_board"></div>
+<script>newBoard();</script>
+</body>
+</html>

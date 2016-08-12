@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+<!-- Starts code to include Bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    
+<!-- End Bootstrap code -->
+<!-- Starts title within head tag -->
+  <title>Lesson 1: Grammar</title>
+  <link rel="stylesheet" type="text/css" href="suoigbo_stylesheet.css">
+  
+
+
+<!-- S T A R T S  M E M O R Y  G A M E  C O D E -->
+<style>
+div#memory_board{
+  background:#CCC;
+  border:#999 1px solid;
+  width:780px; /* 800px */
+  height:540px;
+  padding:24px;
+  margin:0px auto;
+}
+div#memory_board > div{
+  background: url(tile_bg.jpg) no-repeat;
+  border:#000 1px solid;
+  width:120px; /* 71px */
+  height:70px; /* 71px */
+  float:left; 
+  margin:10px;
+  padding:20px;
+  font-size:24px; /* 64px */
+  cursor:pointer;
+  text-align:center;
+}
+</style>
+<script>
+// Scripted By Adam Khoury in connection with the following video tutorial:
+// http://www.youtube.com/watch?v=c_ohDPWmsM0
+var memory_array = ['kitchen','kitchen','kichin','kichin','oloma','oloma','orange','orange','unere','unere','banana','banana','apul','apul','apple','apple','grapu','grapu','grape','grape','ube','ube','pear','pear'];
+var memory_values = [];
+var memory_tile_ids = [];
+var tiles_flipped = 0;
+Array.prototype.memory_tile_shuffle = function(){
+    var i = this.length, j, temp;
+    while(--i > 0){
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
+}
+function newBoard(){
+  tiles_flipped = 0;
+  var output = '';
+    memory_array.memory_tile_shuffle();
+  for(var i = 0; i < memory_array.length; i++){
+    output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+  }
+  document.getElementById('memory_board').innerHTML = output;
+}
+function memoryFlipTile(tile,val){
+  if(tile.innerHTML == "" && memory_values.length < 2){
+    tile.style.background = '#FFF';
+    tile.innerHTML = val;
+    if(memory_values.length == 0){
+      memory_values.push(val);
+      memory_tile_ids.push(tile.id);
+    } else if(memory_values.length == 1){
+      memory_values.push(val);
+      memory_tile_ids.push(tile.id);
+      if(memory_values[0] == memory_values[1]){
+        tiles_flipped += 2;
+        // Clear both arrays
+        memory_values = [];
+              memory_tile_ids = [];
+        // Check to see if the whole board is cleared
+        if(tiles_flipped == memory_array.length){
+          alert("Good job! Dalu olu!");
+          document.getElementById('memory_board').innerHTML = "";
+          newBoard();
+        }
+      } else {
+        function flip2Back(){
+            // Flip the 2 tiles back over
+            var tile_1 = document.getElementById(memory_tile_ids[0]);
+            var tile_2 = document.getElementById(memory_tile_ids[1]);
+            tile_1.style.background = 'url(tile_bg.jpg) no-repeat';
+                  tile_1.innerHTML = "";
+            tile_2.style.background = 'url(tile_bg.jpg) no-repeat';
+                  tile_2.innerHTML = "";
+            // Clear both arrays
+            memory_values = [];
+                  memory_tile_ids = [];
+        }
+        setTimeout(flip2Back, 700);
+      }
+    }
+  }
+}
+</script>
+
+  </head>
+<!-- E N D S  M E M O R Y  G A M E  C O D E -->
+
+
+  <body>
+
+
+
+<!-- Starts navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+<!-- Starts bootstrap container -->
+      <div class="container-fluid"> <!-- Gets rid of padding before navbar brand -->
+
+<!-- Starts navbar header -->
+        <div class="navbar-header">
+<!-- Starts navbar brand -->
+          
+<!-- Starts hamburger button -->
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mylinks" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+<!-- Ends hamburger button -->
+
+          <a class="navbar-brand" href="suoigbo_lessons.html">SụọIgbo</a>
+<!-- Ends navbar brand -->
+        </div>
+<!-- Ends navbar header -->
+        
+<!-- Starts collapsing of navbar when minimized -->
+        <div class="collapse navbar-collapse" id="mylinks">
+
+<!-- Starts navbar header (profile, lessons, parents, contact) -->
+          <div class="navbar-header">
+            <ul class="nav navbar-nav">
+              <li><a href="suoigbo_lessons.html">Lessons</a></li>
+              <li><a href="suoigbo_parents.html">Parents</a></li>
+              <li><a href="suoigbo_contact.html">Contact</a></li>
+            </ul>
+          </div>
+<!-- Ends navbar header (profile, lessons, parents, contact) -->
+<!-- Starts navbar header (sign up, login) -->
+          <div class="navbar-header navbar-right">
+            <ul class="nav navbar-nav">
+              <li><a href="suoigbo_lessons_unit1_matching.html">Matching Game</a></li>
+            </ul>
+          </div>
+<!-- Ends navbar header (sign up, login) -->
+        
+        </div>
+<!-- Ends collapsing of navbar when minimized -->
+
+
+
+      </div>
+<!-- Ends bootstrap container -->
+    </nav>
+<!-- Ends navbar -->
+
+
+<!-- Starts bootstrap container -->
+      <div class="container"> <!-- Gets rid of padding before navbar brand -->
+
+            <ul class="pager">
+              <li class="previous"><a href="suoigbo_lessons_unit1_vocab.html">Previous</a></li>
+              <li class="next"><a href="suoigbo_lessons_unit1_grammar_pronouns.html">Next</a></li>
+            </ul>
+      
+      <h3>Let's play a memory game!</h3>
+<!-- Starts memory game -->      
+<div id="memory_board"></div>
+<script>newBoard();</script>
+<!-- Ends memory -->      
+      </div>
+<!-- Ends memory game -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  
+
+  </body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
